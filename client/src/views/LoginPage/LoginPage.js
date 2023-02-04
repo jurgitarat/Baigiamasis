@@ -19,22 +19,25 @@ export const LoginPage = ({ onLogin }) => {
                 'Content-Type': 'application/json'
             },
         })
-            .then((res) => res.json())
+            .then((res) => {
+                if (!res.ok) throw new Error();
+                else return res.json();
+            })
             .then((data) => {
                 console.log(data);
-                if (data.error) {
-                    setStatus(data.error);
-                    onLogin(data.error);
-                }
-                else {
+                if (data.token) {
                     setStatus(data.msg);
                     onLogin(data.token);
-                    navigate('/');
+                    navigate('/')
+                }
+                else {
+                    setStatus("Unexpected response from server");
                 }
             })
-            .catch();
+            .catch((error) => {
+                setStatus("Login failed");
+            });
     }
-
     const handleUChange = (e) => setUsername(e.target.value);
     const handlePChange = (e) => setPassword(e.target.value);
     return (

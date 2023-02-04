@@ -12,7 +12,6 @@ app.use(express.json());
 
 require('dotenv').config();
 
-
 const mysqlConfig = {
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USER,

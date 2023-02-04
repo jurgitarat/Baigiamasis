@@ -13,7 +13,7 @@ export const List = (user) => {
       navigate("/login");
     }
     console.log(results);
-    setStatus("Klaida: sąrašo užkrauti nepavyko")
+    setStatus("Sarašas kraunamas");
     fetch(BASE_URL + 'events', {
       method: 'GET',
       headers: {
@@ -21,30 +21,34 @@ export const List = (user) => {
         'Authorization': 'Bearer ' + user.token
       },
     })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.err) {
-          setStatus(data.err);
-        }
-        else if (data.length === 0) {
-          setStatus("Dalyvių sąrašas tuščias")
-        }
-        else {
-          setResults(data.map((result, i) => (
-            <div className="card" key={result.idcli}>
-              <h2>{result.Vardas} {result.Pavarde}</h2>
-              <p>el pastas: <a href="mailto://{result.elPastas}">{result.elPastas}</a></p>
-              <p>Telefonas: {result.telNr}</p>
-              <button onClick={() => handleDelete(result.idcli)} class="delete">
-                Trinti
-              </button>
-            </div>
-          )));
-          setStatus("");
-        }
+      .then((res) => {
+        if (!res.ok) throw new Error();
+        else return res.json();
       })
-      .catch();
+      .then((data) => {
+        handleRefresh(data);
+      })
+      .catch((error) => setStatus("Klaida: nepavyko užkrauti sąrašo"));
   }, []);
+  const handleRefresh = (data) => {
+    if (data.length === 0) {
+      setResults("");
+      setStatus("Dalyvių sąrašas tuščias")
+    }
+    else {
+      setResults(data.map((result, i) => (
+        <div className="card" key={result.idcli}>
+          <h2>{result.Vardas} {result.Pavarde}</h2>
+          <p>el pastas: <a href="mailto://{result.elPastas}">{result.elPastas}</a></p>
+          <p>Telefonas: {result.telNr}</p>
+          <button onClick={() => handleDelete(result.idcli)} class="delete">
+            Trinti
+          </button>
+        </div>
+      )));
+      setStatus("");
+    }
+  }
 
   const handleDelete = (id) => {
     if (window.confirm('Ar tikrai norite ištrintį šį dalyvį?')) {
@@ -54,33 +58,16 @@ export const List = (user) => {
           authorization: 'Bearer ' + user.token
         }
       })
-        .then(res => res.json())
-        .then(data => {
-          if (data.err) {
-            setStatus(data.err);
-          }
-          else if (data.length === 0) {
-            setStatus("Dalyvių sąrašas tuščias")
-          }
-          else {
-            setResults(data.map((result, i) => (
-              <div className="card" key={result.idcli}>
-                <h2>{result.Vardas} {result.Pavarde}</h2>
-                <p>el pastas: <a href="mailto://{result.elPastas}">{result.elPastas}</a></p>
-                <p>Telefonas: {result.telNr}</p>
-                <button onClick={() => handleDelete(result.idcli)} class="delete">
-                  Trinti
-                </button>
-              </div>
-            )));
-            setStatus("");
-          }
-        });
+        .then((res) => {
+          if (!res.ok) throw new Error();
+          else return res.json();
+        })
+        .then((data) => {
+          handleRefresh(data);
+        })
+        .catch((error) => setStatus("Klaida: nepavyko užkrauti sąrašo"));
     }
   }
-
-
-
   return (
     <div>
       <h1>Dalyvių sąrašas</h1>
