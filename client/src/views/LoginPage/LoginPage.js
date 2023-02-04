@@ -9,6 +9,7 @@ export const LoginPage = ({ onLogin }) => {
     const navigate = useNavigate();
     const doLogin = (e) => {
         e.preventDefault();
+        setStatus("Prisijungiama");
         fetch(BASE_URL + 'login', {
             method: 'POST',
             body: JSON.stringify({
@@ -31,11 +32,11 @@ export const LoginPage = ({ onLogin }) => {
                     navigate('/')
                 }
                 else {
-                    setStatus("Unexpected response from server");
+                    setStatus("Blogas serverio atsakymas");
                 }
             })
             .catch((error) => {
-                setStatus("Login failed");
+                setStatus("Prisijungti nepavyko");
             });
     }
     const handleUChange = (e) => setUsername(e.target.value);

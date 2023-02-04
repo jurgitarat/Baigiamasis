@@ -29,14 +29,14 @@ export const RegisterPage = () => {
             .then((data) => {
                 console.log(data);
                 if (data.insertId) {
-                    setStatus("User created succesfully. ID: " + data.insertId);
+                    setStatus("Vartotojas sukurtas sėkmingai. ID: " + data.insertId);
                 }
                 else {
-                    setStatus("Unexpected response from server");
+                    setStatus("Blogas atsakymas iš serverio");
                 }
             })
             .catch((error) => {
-                setStatus("Request had failed");
+                setStatus("Vartotojo sukurti nepavyko");
             });
     }
     const handleUChange = (e) => setUsername(e.target.value);
