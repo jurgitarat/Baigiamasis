@@ -27,7 +27,7 @@ export const List = (user) => {
           setStatus(data.err);
         }
         else if (data.length === 0) {
-          setStatus("There are no records")
+          setStatus("Dalyvių sąrašas tuščias")
         }
         else {
           setResults(data.map((result, i) => (
@@ -35,6 +35,9 @@ export const List = (user) => {
               <h2>{result.Vardas} {result.Pavarde}</h2>
               <p>el pastas: <a href="mailto://{result.elPastas}">{result.elPastas}</a></p>
               <p>Telefonas: {result.telNr}</p>
+              <button onClick={() => handleDelete(result.idcli)} class="delete">
+                Trinti
+              </button>
             </div>
           )));
           setStatus("");
@@ -42,6 +45,42 @@ export const List = (user) => {
       })
       .catch();
   }, []);
+
+  const handleDelete = (id) => {
+    if (window.confirm('Ar tikrai norite ištrintį šį dalyvį?')) {
+      fetch(BASE_URL + `events/${id}`, {
+        method: 'DELETE',
+        headers: {
+          authorization: 'Bearer ' + user.token
+        }
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.err) {
+            setStatus(data.err);
+          }
+          else if (data.length === 0) {
+            setStatus("Dalyvių sąrašas tuščias")
+          }
+          else {
+            setResults(data.map((result, i) => (
+              <div className="card" key={result.idcli}>
+                <h2>{result.Vardas} {result.Pavarde}</h2>
+                <p>el pastas: <a href="mailto://{result.elPastas}">{result.elPastas}</a></p>
+                <p>Telefonas: {result.telNr}</p>
+                <button onClick={() => handleDelete(result.idcli)} class="delete">
+                  Trinti
+                </button>
+              </div>
+            )));
+            setStatus("");
+          }
+        });
+    }
+  }
+
+
+
   return (
     <div>
       <h1>Dalyvių sąrašas</h1>

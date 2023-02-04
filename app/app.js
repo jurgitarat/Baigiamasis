@@ -105,5 +105,24 @@ app.post('/events', verifyToken, (req, res) => {
         });
 
 });
+
+app.delete('/events/:id', verifyToken, (req, res) => {
+    const { id } = req.params;
+    const org = getUserFromToken(req);
+    connection.execute(
+        'DELETE FROM cli WHERE idcli=? AND orgid=?',
+        [id, org.idorg],
+        () => {
+            connection.execute('SELECT * FROM cli WHERE orgid=?', [org.idorg], (err, response) => {
+                console.log(response);
+                console.log(err);
+                res.send(response);
+            });
+        }
+    )
+});
+
+
+
 const PORT = 8080;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
