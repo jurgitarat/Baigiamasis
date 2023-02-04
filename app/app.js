@@ -92,14 +92,10 @@ app.get('/events', verifyToken, (req, res) => {
 app.post('/events', verifyToken, (req, res) => {
     const { Firstname, Lastname, Email, Phone } = req.body;
     const org = getUserFromToken(req);
-
-
     connection.execute(
         'INSERT INTO `baigiamasis`.`cli` (`Vardas`, `Pavarde`,`elPastas`, `telNr`,`orgid`) VALUES (?, ?, ?, ?,?)',
         [Firstname, Lastname, Email, Phone, org.idorg],
         (err, response) => {
-            console.log(response);
-            console.log(err);
             res.send(response);
         });
 
