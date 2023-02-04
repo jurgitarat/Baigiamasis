@@ -1,2 +1,2 @@
-const BASE_URL = "https://autumn-delicate-wilderness.glitch.me/";
+const BASE_URL = "http://localhost:8080/";
 export { BASE_URL };

@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../../constants/global';
 export const LoginPage = ({ onLogin }) => {
-
     const [Status, setStatus] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -26,7 +25,6 @@ export const LoginPage = ({ onLogin }) => {
                 if (data.error) {
                     setStatus(data.error);
                     onLogin(data.error);
-                    navigate('/');
                 }
                 else {
                     setStatus(data.msg);

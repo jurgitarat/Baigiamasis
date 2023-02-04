@@ -19,7 +19,7 @@ export const AddPage = (user) => {
     );
     const sendToServer = (e) => {
         e.preventDefault();
-        fetch(BASE_URL + '/add', {
+        fetch(BASE_URL + 'events', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

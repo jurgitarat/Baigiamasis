@@ -31,9 +31,10 @@ export const List = (user) => {
         }
         else {
           setResults(data.map((result, i) => (
-            <div className="card" key={result.id}>
-              <h2>{result.title}</h2>
-              <p>{result.description}</p>
+            <div className="card" key={result.idcli}>
+              <h2>{result.Vardas} {result.Pavarde}</h2>
+              <p>el pastas: <a href="mailto://{result.elPastas}">{result.elPastas}</a></p>
+              <p>Telefonas: {result.telNr}</p>
             </div>
           )));
           setStatus("");
