@@ -12,6 +12,7 @@ export const RegisterPage = () => {
     const [lastname, setLastname] = useState("");
     const submitForm = (e) => {
         e.preventDefault();
+        alert("submitting");
         fetch(BASE_URL + 'register', {
             method: 'POST',
             body: JSON.stringify({
@@ -26,6 +27,7 @@ export const RegisterPage = () => {
         })
             .then((res) => res.json())
             .then((data) => {
+                console.log(data);
                 if (data.err) {
                     setStatus(data.err);
                 }
@@ -43,8 +45,7 @@ export const RegisterPage = () => {
             })
             .catch((error) => {
                 setStatus(error);
-            })
-            ;
+            });
         //  }, []);
     }
 
@@ -58,8 +59,8 @@ export const RegisterPage = () => {
             <div>
                 <form onSubmit={submitForm} >
                     <fieldset>
-                        <label for="Username"> Prisijungimo vardas</label><input placeholder="El. pašto adresas" id="Username" name="Username" onChange={handleUChange} /><br />
-                        <label for="Firstname"> Vardas</label> <input type="text" id="Firstname" name="Firstname" onChange={handleFChange} /><br />
+                        <label> Prisijungimo vardas</label><input placeholder="El. pašto adresas" id="Username" name="Username" onChange={handleUChange} /><br />
+                        <label> Vardas</label> <input type="text" id="Firstname" name="Firstname" onChange={handleFChange} /><br />
                         <label> Pavardė</label> <input type="text" name="Lastname" onChange={handleLChange} /><br />
                         <label> Slaptažodis</label> <input type="password" name="Password" onChange={handlePChange} /><br />
                         <input type="submit" value="Registruotis" />
