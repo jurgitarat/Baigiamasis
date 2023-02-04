@@ -15,37 +15,27 @@ function App() {
   };
   return (
     <div className="App">
-      <Navigation token={userToken} />
+      <Navigation onLogin={handleLogin} token={userToken} />
       <Routes>
         <Route path="/" element={
-
           <RouteSuspense>
             <List token={userToken} />
-
           </RouteSuspense>
         } />
         <Route path="/register" element={
-
           <RouteSuspense>
             <RegisterPage />
-
           </RouteSuspense>
         } />
         <Route path="/login" element={
-
           <RouteSuspense>
             <LoginPage onLogin={handleLogin} />
-
           </RouteSuspense>
-
         } />
         <Route path="/add" element={
-
           <RouteSuspense>
             <AddPage token={userToken} />
-
           </RouteSuspense>
-
         } />
       </Routes>
 

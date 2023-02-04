@@ -64,7 +64,7 @@ export const AddPage = (user) => {
                     <label>Pavardė</label><input type="text" onChange={handleLastnameChange} /><br />
                     <label>El. Paštas</label><input type="text" onChange={handleEmailChange} /><br />
                     <label>Tel. Nr</label><input type="text" onChange={handlePhoneChange} /><br />
-                    <button>Send to Server</button>
+                    <button>Išsaugoti</button>
                 </fieldset>
             </form>
             {Status && <p className='notification'>{Status}</p>}

@@ -48,8 +48,8 @@ export const LoginPage = ({ onLogin }) => {
             <div>
                 <form onSubmit={doLogin} >
                     <fieldset>
-                        <label for="Username"> Prisijungimo vardas</label><input id="Username" name="Username" onChange={handleUChange} /><br />
-                        <label for="Password"> Slaptažodis</label><input type="password" id="Password" name="Password" onChange={handlePChange} /><br />
+                        <label> Prisijungimo vardas</label><input id="Username" name="Username" onChange={handleUChange} /><br />
+                        <label> Slaptažodis</label><input type="password" id="Password" name="Password" onChange={handlePChange} /><br />
                         <input type="submit" value="Prisijungti" />
                     </fieldset>
                 </form>

@@ -1,2 +1,1 @@
-const BASE_URL = "http://localhost:8080/";
-export { BASE_URL };
+export const BASE_URL = "http://localhost:8080/";
