@@ -32,24 +32,29 @@ export const AddPage = (user) => {
                 'Phone': Phone
             })
         })
-            .then((res) => res.json())
+            .then((res) => {
+                if (!res.ok) throw new Error();
+                else return res.json();
+            })
             .then((data) => {
-                if (data.err) {
-                    setStatus(data.err);
+                console.log(data);
+                if (data.insertId) {
+                    setStatus("Dalyvis pridėtas sėkmingai. ID: " + data.insertId);
                 }
                 else {
-                    setStatus(data.msg);
+                    setStatus("Blogas atsakymas iš serverio");
                 }
             })
-            .catch()
+            .catch((error) => {
+                setStatus("Vartotojo sukurti nepavyko");
+            });
 
-            ;
+        ;
     }
     const handleFirstnameChange = (e) => setFirstName(e.target.value);
     const handleLastnameChange = (e) => setLastname(e.target.value);
     const handleEmailChange = (e) => setEmail(e.target.value);
     const handlePhoneChange = (e) => setPhone(e.target.value);
-
     return (
         <div>
             <h1>Naujo dalyvio registracija</h1>
