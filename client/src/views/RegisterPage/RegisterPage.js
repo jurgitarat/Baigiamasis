@@ -1,10 +1,8 @@
 import React from 'react';
 import { useState } from "react";
 import { BASE_URL } from '../../constants/global';
-//import { useNavigate } from "react-router-dom";
 
 export const RegisterPage = () => {
-
     const [Status, setStatus] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -12,7 +10,6 @@ export const RegisterPage = () => {
     const [lastname, setLastname] = useState("");
     const submitForm = (e) => {
         e.preventDefault();
-        alert("submitting");
         fetch(BASE_URL + 'register', {
             method: 'POST',
             body: JSON.stringify({
@@ -25,30 +22,23 @@ export const RegisterPage = () => {
                 'Content-Type': 'application/json'
             },
         })
-            .then((res) => res.json())
+            .then((res) => {
+                if (!res.ok) throw new Error();
+                else return res.json();
+            })
             .then((data) => {
                 console.log(data);
-                if (data.err) {
-                    setStatus(data.err);
-                }
-                else if (data.error) {
-                    setStatus(data.error);
+                if (data.insertId) {
+                    setStatus("User created succesfully. ID: " + data.insertId);
                 }
                 else {
-                    if (data.lastID) {
-                        setStatus("User created succesfully. ID: " + data.lastID);
-                    }
-                    else {
-                        setStatus("Unexpected response from server");
-                    }
+                    setStatus("Unexpected response from server");
                 }
             })
             .catch((error) => {
-                setStatus(error);
+                setStatus("Request had failed");
             });
-        //  }, []);
     }
-
     const handleUChange = (e) => setUsername(e.target.value);
     const handlePChange = (e) => setPassword(e.target.value);
     const handleFChange = (e) => setFirstname(e.target.value);
@@ -71,5 +61,4 @@ export const RegisterPage = () => {
         </div >
     )
 }
-
 export default RegisterPage;
