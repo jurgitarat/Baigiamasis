@@ -27,7 +27,6 @@ export const LoginPage = ({ onLogin }) => {
             .then((data) => {
                 console.log(data);
                 if (data.token) {
-                    setStatus(data.msg);
                     onLogin(data.token);
                     navigate('/')
                 }
