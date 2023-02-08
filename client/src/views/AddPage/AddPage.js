@@ -8,7 +8,6 @@ export const AddPage = (user) => {
     const [Lastname, setLastname] = useState("");
     const [Email, setEmail] = useState("");
     const [Phone, setPhone] = useState("");
-
     const [Status, setStatus] = useState("");
     const navigate = useNavigate();
     useEffect(() => {
@@ -37,7 +36,6 @@ export const AddPage = (user) => {
                 else return res.json();
             })
             .then((data) => {
-                console.log(data);
                 if (data.insertId) {
                     setStatus("Dalyvis pridėtas sėkmingai. ID: " + data.insertId);
                 }

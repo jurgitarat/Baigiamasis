@@ -22,8 +22,8 @@ const mysqlConfig = {
 console.log(mysqlConfig);
 const connection = mysql.createConnection(mysqlConfig);
 
-const getUserFromToken = (req) => {
-    const token = req.headers.authorization.split(' ')[1];
+const getUserFromToken = (request) => {
+    const token = request.headers.authorization.split(' ')[1];
     const user = jwt.verify(token, process.env.JWT_SECRET_KEY);
     return user;
 }
@@ -45,8 +45,6 @@ app.post('/register', (req, res) => {
         'INSERT INTO org (elPastas, vardas, pavarde, slaptazodis) VALUES (?, ?,?,?)',
         [email, firstname, lastname, hashedPassword],
         (err, result) => {
-            console.log(err);
-            console.log(result);
             if (err?.code === 'ER_DUP_ENTRY') {
                 res.sendStatus(400);
             }
@@ -80,10 +78,7 @@ app.post('/login', (req, res) => {
 
 app.get('/events', verifyToken, (req, res) => {
     const org = getUserFromToken(req);
-    console.log(org);
     connection.execute('SELECT * FROM cli WHERE orgid=?', [org.idorg], (err, response) => {
-        console.log(response);
-        console.log(err);
         res.send(response);
     });
 });
@@ -109,8 +104,6 @@ app.delete('/events/:id', verifyToken, (req, res) => {
         [id, org.idorg],
         () => {
             connection.execute('SELECT * FROM cli WHERE orgid=?', [org.idorg], (err, response) => {
-                console.log(response);
-                console.log(err);
                 res.send(response);
             });
         }

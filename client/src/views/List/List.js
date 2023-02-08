@@ -12,7 +12,6 @@ export const List = (user) => {
     if (!user.token) {
       navigate("/login");
     }
-    console.log(results);
     setStatus("Sarašas kraunamas");
     fetch(BASE_URL + 'events', {
       method: 'GET',
