@@ -9,6 +9,10 @@
     font-weight: bold;
 }
 
+.navigacija img {
+    height: 50px;
+}
+
 .navigacija a {
     text-decoration: none;
 }

@@ -13,7 +13,7 @@ export const Navigation = (user) => {
     if (!user.token) {
         return (
             <div className='navigacija'>
-                <img src="https://app.outboundsales.io/api/logo/acme.com" alt="logo" />
+                <img src="https://renginiai.kasvyksta.lt/css/img/logo-invert/logo-kaunas.svg" alt="logo" />
                 <Link to="/Register">Registracija</Link>
                 <Link to="/Login">Prisijungimas</Link>
             </div>)
@@ -21,7 +21,7 @@ export const Navigation = (user) => {
     return (
         <div className='navigacija'>
 
-            <img src="https://app.outboundsales.io/api/logo/acme.com" alt="logo" />
+            <img src="https://renginiai.kasvyksta.lt/css/img/logo-invert/logo-kaunas.svg" alt="logo" />
             {<Link to="/">Sąrašas</Link>}
             <Link to="/Add">Naujas</Link>
             <button onClick={() => handleLogout()}>Atsijungti</button>
