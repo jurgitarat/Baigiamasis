@@ -1,0 +1,18 @@
+.navigacija {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.navigacija img {
+    height: 50px;
+}
+
+.navigacija a {
+    text-decoration: none;
+}
